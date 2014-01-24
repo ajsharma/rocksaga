@@ -1,0 +1,14 @@
+.rock {
+  background: red;
+  box-sizing: border-box;
+  margin: 5px;
+
+  &:hover {
+    border: 5px solid black;
+    cursor: pointer;
+  }
+
+  &.selected {
+    background: blue;
+  }
+}
