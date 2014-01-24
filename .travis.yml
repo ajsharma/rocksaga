@@ -1,0 +1,8 @@
+language: ruby
+rvm:
+  - 2.0.0
+before_script:
+  - cp config/database.example.yml config/database.yml
+  - psql -c 'create database rocksaga_test;' -U postgres
+  - rake db:migrate
+bundler_args: --without development
