@@ -1,8 +1,10 @@
 Rocksaga::Application.routes.draw do
   root :to => "home#index"
-  resources :users, :only => [:index, :show, :edit, :update ]
-  get '/auth/:provider/callback' => 'sessions#create'
-  get '/signin' => 'sessions#new', :as => :signin
-  get '/signout' => 'sessions#destroy', :as => :signout
-  get '/auth/failure' => 'sessions#failure'
+  
+  match '/auth/:provider/callback' => 'sessions#create', via: [:get, :post]
+  match '/signin' => 'sessions#new', :as => :signin, via: [:get, :post]
+  match '/signout' => 'sessions#destroy', :as => :signout, via: [:get, :post]
+  match '/auth/failure' => 'sessions#failure', via: [:get, :post]
+
+  resources :users, :only => [:index, :show, :edit, :update]
 end

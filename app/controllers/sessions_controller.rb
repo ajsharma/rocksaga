@@ -15,14 +15,15 @@ class SessionsController < ApplicationController
     else
       redirect_to root_url, :notice => 'Signed in!'
     end
-  end  
+  end
 
   def destroy
-    reset_session
+    sign_out
     redirect_to root_url, :notice => 'Signed out!'
   end
 
   def failure
+    params[:message] ||= ''
     redirect_to root_url, :alert => "Authentication error: #{params[:message].humanize}"
   end
 
