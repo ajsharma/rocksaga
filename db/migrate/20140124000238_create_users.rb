@@ -4,7 +4,11 @@ class CreateUsers < ActiveRecord::Migration
       t.string :name
       t.string :email
       t.string :provider
-      t.string :uid
+      t.string :provider, :null => false
+      t.string :provider_id, :null => false
+      t.string :provider_screen_name
+      t.string :provider_access_token
+      t.string :provider_access_token_secret
 
       t.timestamps
     end
