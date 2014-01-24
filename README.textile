@@ -1,5 +1,8 @@
 h1. Rocksaga
 
+!https://travis-ci.org/ajsharma/rocksaga.png?branch=master!:https://travis-ci.org/ajsharma/rocksaga
+
+
 This application was generated with the "rails_apps_composer":https://github.com/RailsApps/rails_apps_composer gem provided by the "RailsApps Project":http://railsapps.github.io/.
 
 h2. Diagnostics
