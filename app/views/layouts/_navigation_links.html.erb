@@ -1,8 +1,8 @@
 <%# add navigation links to this file %>
-<% if user_signed_in? %>
+<% if current_user_signed_in? %>
   <li><%= link_to 'Users', users_path %></li>
 <% end %>
-<% if user_signed_in? %>
+<% if current_user_signed_in? %>
   <li>
   <%= link_to 'Logout', signout_path %>
   </li>
@@ -11,7 +11,7 @@
   <%= link_to 'Login', signin_path %>
   </li>
 <% end %>
-<% if user_signed_in? %>
+<% if current_user_signed_in? %>
   <% if current_user.has_role? :admin %>
     <li>
     <%= link_to 'Admin', users_path %>

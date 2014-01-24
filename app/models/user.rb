@@ -15,4 +15,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def update_credentials(auth)
+    if auth['credentials']
+      self.provider_access_token = auth['credentials']['token']
+      self.provider_access_token_secret = auth['credentials']['secret']
+      self.save!
+    end
+  end  
+
 end
