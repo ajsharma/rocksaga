@@ -1,5 +1,5 @@
 Rocksaga::Application.routes.draw do
-  root :to => "home#index"
+  root :to => "game#index"
   
   match '/auth/:provider/callback' => 'sessions#create', via: [:get, :post]
   match '/signin' => 'sessions#new', :as => :signin, via: [:get, :post]
