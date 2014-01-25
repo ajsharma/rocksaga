@@ -4,7 +4,7 @@ $ = jQuery
 
 class Game.Rock
   @_id: 0
-  @_types: ['emerald', 'ruby', 'sapphire']
+  @_types: ['emerald', 'jade', 'opal', 'ruby', 'sapphire', 'tiger-eye', 'topaz']
 
   _id: 0
   _x: 0

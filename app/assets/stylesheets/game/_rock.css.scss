@@ -12,8 +12,24 @@
     background-color: green;
   }
 
+  &.jade {
+    background-color: lightgreen;
+  }
+
+  &.opal {
+    background-color: purple;
+  }
+
   &.sapphire {
     background-color: blue;
+  }
+
+  &.tiger-eye {
+    background-color: orange;
+  }
+
+  &.topaz {
+    background-color: yellow; 
   }
 
   &:hover {
@@ -22,6 +38,6 @@
   }
 
   &.selected {
-    background: purple;
+    border: 10px solid black;
   }
 }
