@@ -1,7 +1,20 @@
 .rock {
-  background: red;
+  background: black;
   box-sizing: border-box;
   margin: 5px;
+  min-height: 50px;
+
+  &.ruby {
+    background-color: red;
+  }
+
+  &.emerald {
+    background-color: green;
+  }
+
+  &.sapphire {
+    background-color: blue;
+  }
 
   &:hover {
     border: 5px solid black;
@@ -9,6 +22,6 @@
   }
 
   &.selected {
-    background: blue;
+    background: purple;
   }
 }

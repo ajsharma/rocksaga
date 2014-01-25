@@ -14,16 +14,22 @@ class Game.Board
     # TODO: set listeners
 
   populate: ->
+    rowElement = @createRowsElement()
+    @_element.append(rowElement)
     for x in [0..7]
-      rowElement = @createRowElement()
-      @_element.append(rowElement)
       for y in [0..7]
         rock = new Game.Rock(x, y)
         @_rocks.push(rock)
-        rowElement.append(rock.div)
 
-  createRowElement: ->
+        rowLiElement = @createRowElement()
+        rowElement.append(rowLiElement)
+        rowLiElement.append(rock.div)
+
+  createRowsElement: ->
     $('<ul />', {
       'class': 'small-block-grid-8',
       'data-board-row': 'data-board-row'
     })
+
+  createRowElement: ->
+    $('<li />')
