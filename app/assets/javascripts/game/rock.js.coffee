@@ -4,17 +4,27 @@ $ = jQuery
 
 class Game.Rock
   @_id: 0
-  @_types: ['emerald', 'jade', 'opal', 'ruby', 'sapphire', 'tiger-eye', 'topaz']
+  @_types: [
+    'emerald'
+    'jade'
+    'opal'
+    'ruby'
+    'sapphire'
+    'tiger-eye'
+    'topaz'
+  ]
 
   _id: 0
+  _game: null
   _x: 0
   _y: 0
 
-  constructor: (x, y) ->
-    @_id = Rock.generate_id()
-    @_type = Rock.generate_type()
+  constructor: (game, x, y) ->
+    @_game = game
     @_x = x
     @_y = y
+    @_id = Rock.generate_id()
+    @_type = Rock.generate_type()
     @div = @createElement()
     @registerMouse()
 
@@ -24,15 +34,16 @@ class Game.Rock
   y: ->
     @_y
 
+  type: ->
+    @_type
+
   createElement: ->
-    # Utils.createLi('rock-' + @_id, 'rock', 0, 0, 50, 50)
-    $('<div></div>', {
+    $('<div />', {
       'id': 'rock-' + @_id,
       'class': 'rock ' + @_type,
       'data-board-row': 'data-board-row'
       'data-board-row-x': @_x,
       'data-board-row-y': @_y,
-
     })
 
   registerMouse: ->
@@ -41,8 +52,8 @@ class Game.Rock
   registerMouseClicks: (event) ->
     $div = $(@div)
     $div.click =>
-      $div.toggleClass('selected')
-      console.log { 'x': @_x, 'y': @_y }
+      if @_game.state == 'pick' && @_game.select(@) 
+        $div.toggleClass('selected')
 
   @generate_id: ->
     @_id++
