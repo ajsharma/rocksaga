@@ -33,10 +33,9 @@ class Game.Board
       for y in [0..7]
         unless @_rocks[x][y]?
           while true
-            console.log "set #{x}, #{y}"
             rock = new Game.Rock(@, x, y)
             @_rocks[x][y] = rock
-            break unless @isSequence(x, y) # boo for breaks, but no do...while in CoffeeScript
+            break unless @isInChain(x, y) # boo for breaks, but no do...while in CoffeeScript
 
           # TODO: move DOM manipulation elsewhere
           rowLiElement = @createRowElement()
@@ -60,7 +59,7 @@ class Game.Board
       @_selectedRock = rock
       return true
     else if @isAdjacentToSelected(rock)
-      # TODO: swap
+      @swapWithSelected(rock)
       return true 
     else
       return false
@@ -73,67 +72,72 @@ class Game.Board
 
     return false
 
-  isVerticalSequence: (x, y) ->
-    return (@upwardVerticalSequenceLength(x, y) + @downwardVerticalSequenceLength(x, y)) >= 3
+  isVerticalChain: (x, y) ->
+    return (@upwardVerticalChainLength(x, y) + @downwardVerticalChainLength(x, y)) >= 3
 
-  upwardVerticalSequenceLength: (x, y) ->
+  upwardVerticalChainLength: (x, y) ->
     unless @_rocks[x][y]?
       return false
 
-    sequenceLength = 1
+    chainLength = 1
     row = x
 
     while(row > 0 && @_rocks[row - 1][y]? && (@_rocks[row - 1][y].type() == @_rocks[x][y].type()))
-      sequenceLength++
+      chainLength++
       row--
 
-    return sequenceLength
+    return chainLength
 
-  downwardVerticalSequenceLength: (x, y) ->
+  downwardVerticalChainLength: (x, y) ->
     unless @_rocks[x][y]?
       return false
 
-    sequenceLength = 1
+    chainLength = 1
     row = x
 
     while(row < 7 && @_rocks[row + 1][y]? && (@_rocks[row + 1][y].type() == @_rocks[x][y].type()))
-      sequenceLength++
+      chainLength++
       row++
 
-    return sequenceLength
+    return chainLength
 
-  isHorizontalSequence: (x, y) ->
-    return (@leftwardHorizontalSequenceLength(x, y) + @rightwardHorizontalSequenceLength(x, y)) >= 3
+  isHorizontalChain: (x, y) ->
+    return (@leftwardHorizontalChainLength(x, y) + @rightwardHorizontalChainLength(x, y)) >= 3
 
-  leftwardHorizontalSequenceLength: (x, y) ->
+  leftwardHorizontalChainLength: (x, y) ->
     unless @_rocks[x][y]?
       return 0
 
-    sequenceLength = 1
+    chainLength = 1
     column = y
 
     while(column > 0 && @_rocks[x][column - 1]? && (@_rocks[x][column - 1].type() == @_rocks[x][y].type()))
-      sequenceLength++
+      chainLength++
       column--
 
-    return sequenceLength
+    return chainLength
 
-  rightwardHorizontalSequenceLength: (x, y) ->
+  rightwardHorizontalChainLength: (x, y) ->
     unless @_rocks[x][y]?
       return 0
 
-    sequenceLength = 1
+    chainLength = 1
     column = y
 
     column = y
     while(column < 7 && @_rocks[x][column + 1]? && (@_rocks[x][column + 1].type() == @_rocks[x][y].type()))
-      sequenceLength++
+      chainLength++
       column++
 
-    return sequenceLength
+    return chainLength
 
-  isSequence: (x, y) ->
-    return @isVerticalSequence(x, y) || @isHorizontalSequence(x, y)
+  isInChain: (x, y) ->
+    return @isVerticalChain(x, y) || @isHorizontalChain(x, y)
 
-  swap: (x, y) ->
+  swapWithSelected: (rock) ->
+    if @_selectedRock?
+      temp = @_selectedRock
+      @_rocks[@_selectedRock.x()][@_selectedRock.y()] = rock
+      @_rocks[rock.x()][rock.y()] = @_selectedRock
+
 
