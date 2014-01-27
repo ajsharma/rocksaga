@@ -43,7 +43,10 @@ class Game.Rock
     $(@_element).attr('data-rock-type', type)
 
   isBlank: ->
-    return !@type()
+    return !@_type?
+
+  isNotBlank: ->
+    return !@isBlank()
 
   isInChain: ->
     @_isInChain

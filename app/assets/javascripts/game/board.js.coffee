@@ -50,12 +50,12 @@ class Game.Board
     for x in [7..0]
       for y in [7..0]
         if @_rocks[x][y]? && @_rocks[x][y].isBlank()
-          if x - 1 >= 0
+          if x - 1 >= 0 # rows pull down from above
             @_swapRocks(@_rocks[x][y], @_rocks[x - 1][y])
-          else 
-            repopulated = true
+          else # top row needs new rocks
             rock = new Game.Rock(@, x, y)
             @_rocks[x][y].setType(rock.type())
+          repopulated = true
 
     repopulated
 
@@ -117,7 +117,7 @@ class Game.Board
     return (@upwardVerticalChainLength(x, y) + @downwardVerticalChainLength(x, y)) >= 2
 
   upwardVerticalChainLength: (x, y) ->
-    unless @_rocks[x][y]?
+    unless @_rocks[x][y]? && @_rocks[x][y].isNotBlank()
       return false
 
     chainLength = 0
@@ -130,7 +130,7 @@ class Game.Board
     return chainLength
 
   downwardVerticalChainLength: (x, y) ->
-    unless @_rocks[x][y]?
+    unless @_rocks[x][y]? && @_rocks[x][y].isNotBlank()
       return false
 
     chainLength = 0
@@ -146,7 +146,7 @@ class Game.Board
     return (@leftwardHorizontalChainLength(x, y) + @rightwardHorizontalChainLength(x, y)) >= 2
 
   leftwardHorizontalChainLength: (x, y) ->
-    unless @_rocks[x][y]?
+    unless @_rocks[x][y]? && @_rocks[x][y].isNotBlank()
       return 0
 
     chainLength = 0
@@ -159,7 +159,7 @@ class Game.Board
     return chainLength
 
   rightwardHorizontalChainLength: (x, y) ->
-    unless @_rocks[x][y]?
+    unless @_rocks[x][y]? && @_rocks[x][y].isNotBlank()
       return 0
 
     chainLength = 0
