@@ -54,6 +54,7 @@ class Game.Rock
     })
 
   clean: ->
+    console.log @_element.attr('class')
     $(@_element).removeClass('selected')
 
   destroy: ->
@@ -67,7 +68,9 @@ class Game.Rock
     $element = $(@_element)
     $element.click =>
       if @_game.state == 'pick' && @_game.selectRock(@)
-        $element.toggleClass('selected')
+        $element.addClass('selected')
+      else
+        $element.removeClass('selected')
 
   @generate_id: ->
     @_id++

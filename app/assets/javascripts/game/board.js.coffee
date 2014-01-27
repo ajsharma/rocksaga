@@ -49,8 +49,10 @@ class Game.Board
     for x in [0..7]
       for y in [0..7]
         unless @_rocks[x][y]? && @_rocks[x][y].type()?
-          rock = new Game.Rock(@, x, y)
-          @_rocks[x][y].setType(rock.type())
+          while true
+            rock = new Game.Rock(@, x, y)
+            @_rocks[x][y].setType(rock.type())
+            break unless @isInChain(x, y) # boo for breaks, but no do...while in CoffeeScript
 
   incrementScore: (increment) ->
     @_score = @_score + increment
@@ -149,7 +151,8 @@ class Game.Board
       @setSelectedRock(rock)
       return true
     else if @isAdjacentToSelected(rock)
-      return @swapWithSelected(rock)
+      @swapWithSelected(rock)
+      return false
     else
       return false
 
@@ -171,7 +174,10 @@ class Game.Board
           # TODO: destroy all rocks in chain
           rock.destroy()
           @incrementScore(1)
-        
+
+        @_selectedRock.clean()
+        rock.clean()
+
         @setSelectedRock(null)
         @repopulate()
         swapped = true
