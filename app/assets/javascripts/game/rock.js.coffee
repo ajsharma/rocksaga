@@ -54,7 +54,6 @@ class Game.Rock
     })
 
   clean: ->
-    console.log @_element.attr('class')
     $(@_element).removeClass('selected')
 
   destroy: ->
