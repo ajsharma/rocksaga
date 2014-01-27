@@ -14,13 +14,14 @@ class ScoresController < ApplicationController
 
   # GET /scores/1/edit
   def edit
-    @top_score = Score.where_top.find
+    @top_score = Score.where_top.first
   end
 
   # POST /scores
   # POST /scores.json
   def create
     @score = Score.new(score_params)
+    @top_score = Score.where_top.first
 
     respond_to do |format|
       if @score.save
