@@ -56,6 +56,12 @@ class Game.Board
     @_score = @_score + increment
     @_scoreBoard.setScore(@_score)
 
+  selectedRock: ->
+    @_selectedRock
+
+  setSelectedRock: (rock) ->
+    @_selectedRock = rock
+
   createRowsElement: ->
     $('<ul />', {
       'class': 'small-block-grid-8',
@@ -137,10 +143,10 @@ class Game.Board
 
   selectRock: (rock) ->
     if @_selectedRock == rock
-      @_selectedRock = null
+      @setSelectedRock(null)
       return true
     else if !(@_selectedRock?)
-      @_selectedRock = rock
+      @setSelectedRock(rock)
       return true
     else if @isAdjacentToSelected(rock)
       return @swapWithSelected(rock)
@@ -166,7 +172,7 @@ class Game.Board
           rock.destroy()
           @incrementScore(1)
         
-        @_selectedRock = null          
+        @setSelectedRock(null)
         @repopulate()
         swapped = true
       else
