@@ -13,7 +13,7 @@ class Game.ScoreBoard
 
   setScore: (score) ->
     console.log $(@_element)
-    $(@_element).children('input').val(score)
+    $(@_inputElement).val(score)
 
   createElement: (game, score) ->
     @_element = $('[data-scoreboard]').first()
