@@ -204,7 +204,7 @@ class Game.Board
         swapped = true
       else
         # invalid move, swap rocks back
-        alert 'invalid move'
+        new Alert.Standard('Invalid move')
         @_swapRocks(@_selectedRock, rock)
       swapped
 
