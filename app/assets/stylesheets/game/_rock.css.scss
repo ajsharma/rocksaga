@@ -1,17 +1,18 @@
 .rock {
   background-color: #ffffff;
   border: 5px solid #ffffff;
-  border-radius: 10px;
   box-sizing: border-box;
   margin: 3px;
   min-height: 50px;
 
   &[data-rock-type='ruby'] {
     background-color: #ff0000;
+    border-radius: 10px;
   }
 
   &[data-rock-type='emerald'] {
     background-color: #008500;
+    border-radius: 10px;
   }
 
   &[data-rock-type='jade'] {
@@ -20,6 +21,7 @@
 
   &[data-rock-type='opal'] {
     background-color: #be008a;
+    border-radius: 5px;
   }
 
   &[data-rock-type='sapphire'] {
@@ -28,6 +30,7 @@
 
   &[data-rock-type='tiger-eye'] {
     background-color: #ff7400;
+    border-radius: 10px;
   }
 
   &[data-rock-type='topaz'] {
