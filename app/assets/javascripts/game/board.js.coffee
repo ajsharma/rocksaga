@@ -11,13 +11,15 @@ class Game.Board
   _selectedRock: null
   _states: [
     'pick'
+    'populating'
   ]
 
-  state: 'populate'
+  state: null
 
   constructor: ->
     @_element = $('[data-board]').first()
     @_element.empty()
+    @setState('populating')
     for x in [0..7]
       @_rocks[x] = [0..7]
       for y in [0..7]
@@ -26,8 +28,14 @@ class Game.Board
 
   start: ->
     @populate()
-    @state = 'pick'
+    @setState('pick');
     # TODO: set listeners
+
+  setState: (state) ->
+    if(state == 'populating')
+      @_element.attr('disabled', 'disabled')
+    
+    @state = state
 
   populate: ->
     rowElement = @createRowsElement()
@@ -45,19 +53,27 @@ class Game.Board
           rowElement.append(rowLiElement)
           rowLiElement.append(rock.element())
 
-  repopulate: ->
-    repopulated = false;
+  repopulate: =>
+
+    hasBlanks = false
+    @setState('populating')  # TODO: disable board when populating
     for x in [7..0]
       for y in [7..0]
         if @_rocks[x][y]? && @_rocks[x][y].isBlank()
           if x - 1 >= 0 # rows pull down from above
             @_swapRocks(@_rocks[x][y], @_rocks[x - 1][y])
+            hasBlanks = true
           else # top row needs new rocks
             rock = new Game.Rock(@, x, y)
             @_rocks[x][y].setType(rock.type())
-          repopulated = true
 
-    repopulated
+    if hasBlanks
+      # continuously repopulate until no blanks
+      setTimeout @repopulate, 500
+    else if @destroyRockChains()
+      setTimeout @repopulate, 500
+    else
+      @setState('pick')
 
   dirtyRockChains: ->
     for x in [7..0]
@@ -69,18 +85,21 @@ class Game.Board
   destroyRockChains: ->
     @dirtyRockChains()
       
+    destroyedRockChains = false
     for x in [7..0]
       for y in [7..0]
         rock = @_rocks[x][y]
         if rock? && rock.isInChain()
+          destroyedRockChains = true
           @incrementScore(1)
           rock.destroy()
 
+    destroyedRockChains
+
   refresh: ->
     # Again, no do...while :(
-    @destroyRockChains()
-    while @repopulate()
-      @destroyRockChains()
+    if @destroyRockChains()
+      @repopulate()
 
   incrementScore: (increment) ->
     @_score = @_score + increment
@@ -176,6 +195,9 @@ class Game.Board
     return @isVerticalChain(x, y) || @isHorizontalChain(x, y)
 
   selectRock: (rock) ->
+    unless @state == 'pick'
+      return false
+
     if !(@_selectedRock?)
       @setSelectedRock(rock)
       return true
