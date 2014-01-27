@@ -46,13 +46,15 @@ class Game.Board
           rowLiElement.append(rock.element())
 
   repopulate: ->
-    for x in [0..7]
-      for y in [0..7]
-        unless @_rocks[x][y]? && @_rocks[x][y].type()?
-          while true
+    # TODO: bottom up repopulate
+    for x in [7..0]
+      for y in [7..0]
+        if @_rocks[x][y]? && @_rocks[x][y].isBlank()
+          if x - 1 >= 0
+            @_swapRocks(@_rocks[x][y], @_rocks[x - 1][y])
+          else 
             rock = new Game.Rock(@, x, y)
             @_rocks[x][y].setType(rock.type())
-            break unless @isInChain(x, y) # boo for breaks, but no do...while in CoffeeScript
 
   incrementScore: (increment) ->
     @_score = @_score + increment
@@ -146,15 +148,13 @@ class Game.Board
   selectRock: (rock) ->
     if @_selectedRock == rock
       @setSelectedRock(null)
-      return true
     else if !(@_selectedRock?)
       @setSelectedRock(rock)
       return true
     else if @isAdjacentToSelected(rock)
       @swapWithSelected(rock)
-      return false
-    else
-      return false
+
+    return false
 
   swapWithSelected: (rock) ->
     swapped = false

@@ -41,6 +41,9 @@ class Game.Rock
     @_type = type
     $(@_element).attr('data-rock-type', type)
 
+  isBlank: ->
+    return !@type()
+
   element: ->
     @_element
 
