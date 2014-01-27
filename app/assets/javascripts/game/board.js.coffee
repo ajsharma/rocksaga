@@ -90,8 +90,9 @@ class Game.Board
     @_selectedRock
 
   setSelectedRock: (rock) ->
-    unless rock?
-      @_selectedRock.clean()
+    unless rock? 
+      if @_selectedRock?
+        @_selectedRock.clean()
       
     @_selectedRock = rock
 
