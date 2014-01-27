@@ -1,9 +1,15 @@
+@import "compass";
+
 .rock {
   background-color: #ffffff;
   border: 5px solid #ffffff;
   box-sizing: border-box;
   margin: 3px;
   min-height: 50px;
+
+  @include transition-property(background-color);
+  @include transition-duration(1s);
+  @include transition-timing-function(linear);
 
   &[data-rock-type='ruby'] {
     background-color: #ff0000;
