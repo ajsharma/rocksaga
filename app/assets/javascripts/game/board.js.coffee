@@ -69,9 +69,9 @@ class Game.Board
 
     if hasBlanks
       # continuously repopulate until no blanks
-      setTimeout @repopulate, 500
+      setTimeout @repopulate, 250
     else if @destroyRockChains()
-      setTimeout @repopulate, 500
+      setTimeout @repopulate, 250
     else
       @setState('pick')
 
