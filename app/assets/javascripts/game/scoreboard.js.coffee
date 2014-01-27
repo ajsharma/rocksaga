@@ -12,7 +12,6 @@ class Game.ScoreBoard
     @createElement(game, score)
 
   setScore: (score) ->
-    console.log $(@_element)
     $(@_inputElement).val(score)
 
   createElement: (game, score) ->
