@@ -5,20 +5,16 @@ $ = jQuery
 class Game.ScoreBoard
   _game: null
   _element: null
-  _inputElement: null
+  _scoreInputElement: null
 
   constructor: (game, score) ->
     @_game = game
     @createElement(game, score)
 
   setScore: (score) ->
-    $(@_inputElement).val(score)
+    @_scoreInputElement.val(score)
 
   createElement: (game, score) ->
     @_element = $('[data-scoreboard]').first()
-    @_inputElement = $("<input />", {
-      'class': 'scoreboard'
-      'data-scoreboard':'data-scoreboard'
-    })
-    $(@_inputElement).val(score)
-    @_element.append(@_inputElement)
+    @_scoreInputElement = @_element.find("input[name='score[score]']").first()
+    @_scoreInputElement.val(score)
