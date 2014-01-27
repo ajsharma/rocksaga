@@ -6,6 +6,6 @@ Rocksaga::Application.routes.draw do
   match '/signout' => 'sessions#destroy', :as => :signout, via: [:get, :post]
   match '/auth/failure' => 'sessions#failure', via: [:get, :post]
 
-  resources :users, :only => [:index, :show, :edit, :update]
+  resources :users, :only => [:show]
   resources :scores
 end
