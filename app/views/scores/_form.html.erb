@@ -12,7 +12,12 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :score, "Score (current best: #{@top_score.score})" %>
+    <% unless @top_score.nil? %>
+      <%= f.label :score, "Score (current best: #{@top_score.score})" %>
+    <% else %>
+      <%= f.label :score %>
+    <% end %>
+    
     <%= f.text_field :score, :readonly => true %>
   </div>
 
