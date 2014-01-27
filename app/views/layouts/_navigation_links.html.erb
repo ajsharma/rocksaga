@@ -2,6 +2,9 @@
 <li>
   <%= link_to 'New Game', root_path, :class => 'button' %>
 </li>
+<li>
+  <%= link_to 'Top Scores', scores_path %>
+</li>
 <% if current_user_signed_in? %>
   <li><%= link_to 'Users', users_path %></li>
 <% end %>
