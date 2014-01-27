@@ -1,12 +1,6 @@
-<p>
-  <strong>Name:</strong>
-  <%= @score.name %>
-</p>
-
-<p>
-  <strong>Score:</strong>
+<h2>
+  <b><%= @score.name %>:</b>
   <%= @score.score %>
-</p>
+</h2>
 
-<%= link_to 'Edit', edit_score_path(@score) %> |
-<%= link_to 'Back', scores_path %>
+<%= link_to "Top Scores", scores_path, :class => 'button' %>

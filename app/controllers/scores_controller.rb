@@ -4,7 +4,7 @@ class ScoresController < ApplicationController
   # GET /scores
   # GET /scores.json
   def index
-    @scores = Score.where_best.all
+    @scores = Score.where_top.all
   end
 
   # GET /scores/1
@@ -14,6 +14,7 @@ class ScoresController < ApplicationController
 
   # GET /scores/1/edit
   def edit
+    @top_score = Score.where_top.find
   end
 
   # POST /scores

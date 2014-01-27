@@ -5,9 +5,9 @@ class Score < ActiveRecord::Base
   validates_presence_of :name
   validates_presence_of :score
 
-  def self.where_best
+  def self.where_top(limit = 10)
     order("#{table_name}.score DESC")
-    .limit(10)
+    .limit(limit)
   end
 
 end
