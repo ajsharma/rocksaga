@@ -68,7 +68,6 @@ class Game.Rock
     @isInChain(false)
 
   destroy: ->
-    console.log "destroying #{@x()}, #{@y()}"
     @setType(null)
     @clean()
 
