@@ -1,35 +1,35 @@
 .rock {
-  background: black;
+  background-color: #ffffff;
   border-radius: 5px;
   box-sizing: border-box;
   margin: 5px;
   min-height: 50px;
 
-  &.ruby {
+  &[data-rock-type='ruby'] {
     background-color: red;
   }
 
-  &.emerald {
+  &[data-rock-type='emerald'] {
     background-color: green;
   }
 
-  &.jade {
+  &[data-rock-type='jade'] {
     background-color: lightgreen;
   }
 
-  &.opal {
+  &[data-rock-type='opal'] {
     background-color: purple;
   }
 
-  &.sapphire {
+  &[data-rock-type='sapphire'] {
     background-color: blue;
   }
 
-  &.tiger-eye {
+  &[data-rock-type='tiger-eye'] {
     background-color: orange;
   }
 
-  &.topaz {
+  &[data-rock-type='topaz'] {
     background-color: yellow; 
   }
 

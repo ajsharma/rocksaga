@@ -8,10 +8,10 @@ class Game.Rock
     'emerald'
     'jade'
     'opal'
-    'ruby'
-    'sapphire'
-    'tiger-eye'
-    'topaz'
+    # 'ruby'
+    # 'sapphire'
+    # 'tiger-eye'
+    # 'topaz'
   ]
 
   _id: 0
@@ -25,7 +25,7 @@ class Game.Rock
     @_y = y
     @_id = Rock.generate_id()
     @_type = Rock.generate_type()
-    @div = @createElement()
+    @_element = @createElement()
     @registerMouse()
 
   x: ->
@@ -37,23 +37,37 @@ class Game.Rock
   type: ->
     @_type
 
+  setType: (type) ->
+    @_type = type
+    $(@_element).attr('data-rock-type', type)
+
+  element: ->
+    @_element
+
   createElement: ->
     $('<div />', {
-      'id': 'rock-' + @_id,
-      'class': 'rock ' + @_type,
-      'data-board-row': 'data-board-row'
-      'data-board-row-x': @_x,
-      'data-board-row-y': @_y,
+      'id': 'rock-' + @_id
+      'class': 'rock'
+      'data-rock-x': @_x
+      'data-rock-y': @_y
+      'data-rock-type': @_type
     })
+
+  clean: ->
+    $(@_element).removeClass('selected')
+
+  destroy: ->
+    @setType(null)
+    @clean()
 
   registerMouse: ->
     @registerMouseClicks()
 
   registerMouseClicks: (event) ->
-    $div = $(@div)
-    $div.click =>
-      if @_game.state == 'pick' && @_game.select(@) 
-        $div.toggleClass('selected')
+    $element = $(@_element)
+    $element.click =>
+      if @_game.state == 'pick' && @_game.selectRock(@)
+        $element.toggleClass('selected')
 
   @generate_id: ->
     @_id++
