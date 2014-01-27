@@ -1,8 +1,12 @@
 <h1>Top Scores</h1>
 
-<% @scores.each do |score| %>
-  <h2>
-    <b><%= score.name %>:</b>
-    <%= score.score %>
-  </h2>
-<% end %>
+<ol>
+  <% @scores.each do |score| %>
+    <li>
+      <h2>
+        <b><%= score.name %>:</b>
+        <%= score.score %>
+      </h2>
+    </li>
+  <% end %>
+</ol>
