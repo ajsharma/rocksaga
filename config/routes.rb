@@ -7,4 +7,5 @@ Rocksaga::Application.routes.draw do
   match '/auth/failure' => 'sessions#failure', via: [:get, :post]
 
   resources :users, :only => [:index, :show, :edit, :update]
+  resources :scores
 end
