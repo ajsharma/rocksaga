@@ -19,4 +19,4 @@ class Alert.Standard
     console.log @_element
     $('[role=main]').prepend(@_element)
 
-    @_element.delay(1000).fadeOut('fast');
+    @_element.delay(3000).fadeOut('fast');
