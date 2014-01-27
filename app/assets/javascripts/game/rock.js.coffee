@@ -8,16 +8,17 @@ class Game.Rock
     'emerald'
     'jade'
     'opal'
-    # 'ruby'
-    # 'sapphire'
-    # 'tiger-eye'
-    # 'topaz'
+    'ruby'
+    'sapphire'
+    'tiger-eye'
+    'topaz'
   ]
 
   _id: 0
   _game: null
   _x: 0
   _y: 0
+  _isInChain: false
 
   constructor: (game, x, y) ->
     @_game = game
@@ -44,6 +45,12 @@ class Game.Rock
   isBlank: ->
     return !@type()
 
+  isInChain: ->
+    @_isInChain
+
+  setIsInChain: (isInChain) ->
+    @_isInChain = isInChain
+
   element: ->
     @_element
 
@@ -58,8 +65,10 @@ class Game.Rock
 
   clean: ->
     $(@_element).removeClass('selected')
+    @isInChain(false)
 
   destroy: ->
+    console.log "destroying #{@x()}, #{@y()}"
     @setType(null)
     @clean()
 

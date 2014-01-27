@@ -46,15 +46,41 @@ class Game.Board
           rowLiElement.append(rock.element())
 
   repopulate: ->
-    # TODO: bottom up repopulate
+    repopulated = false;
     for x in [7..0]
       for y in [7..0]
         if @_rocks[x][y]? && @_rocks[x][y].isBlank()
           if x - 1 >= 0
             @_swapRocks(@_rocks[x][y], @_rocks[x - 1][y])
           else 
+            repopulated = true
             rock = new Game.Rock(@, x, y)
             @_rocks[x][y].setType(rock.type())
+
+    repopulated
+
+  dirtyRockChains: ->
+    for x in [7..0]
+      for y in [7..0]
+        @_rocks[x][y]
+        if @_rocks[x][y]? 
+          @_rocks[x][y].setIsInChain(@isInChain(x, y))
+
+  destroyRockChains: ->
+    @dirtyRockChains()
+      
+    for x in [7..0]
+      for y in [7..0]
+        rock = @_rocks[x][y]
+        if rock? && rock.isInChain()
+          @incrementScore(1)
+          rock.destroy()
+
+  refresh: ->
+    # Again, no do...while :(
+    @destroyRockChains()
+    while @repopulate()
+      @destroyRockChains()
 
   incrementScore: (increment) ->
     @_score = @_score + increment
@@ -166,20 +192,12 @@ class Game.Board
       rockInChain = @isInChain(rock.x(), rock.y())
 
       if selectedRockInChain || rockInChain
-        if selectedRockInChain
-          # TODO: destroy all rocks in chain
-          @_selectedRock.destroy()
-          @incrementScore(1)
-        if rockInChain
-          # TODO: destroy all rocks in chain
-          rock.destroy()
-          @incrementScore(1)
-
         @_selectedRock.clean()
         rock.clean()
-
         @setSelectedRock(null)
-        @repopulate()
+
+        @refresh()
+
         swapped = true
       else
         # invalid move, swap rocks back
