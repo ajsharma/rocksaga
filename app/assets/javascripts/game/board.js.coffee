@@ -90,6 +90,9 @@ class Game.Board
     @_selectedRock
 
   setSelectedRock: (rock) ->
+    unless rock?
+      @_selectedRock.clean()
+      
     @_selectedRock = rock
 
   createRowsElement: ->
@@ -172,13 +175,13 @@ class Game.Board
     return @isVerticalChain(x, y) || @isHorizontalChain(x, y)
 
   selectRock: (rock) ->
-    if @_selectedRock == rock
-      @setSelectedRock(null)
-    else if !(@_selectedRock?)
+    if !(@_selectedRock?)
       @setSelectedRock(rock)
       return true
     else if @isAdjacentToSelected(rock)
       @swapWithSelected(rock)
+
+    @setSelectedRock(null)
 
     return false
 
