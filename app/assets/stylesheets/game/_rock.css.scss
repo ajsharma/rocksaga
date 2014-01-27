@@ -1,44 +1,45 @@
 .rock {
   background-color: #ffffff;
-  border-radius: 5px;
+  border: 5px solid #ffffff;
+  border-radius: 10px;
   box-sizing: border-box;
-  margin: 5px;
+  margin: 3px;
   min-height: 50px;
 
   &[data-rock-type='ruby'] {
-    background-color: red;
+    background-color: #ff0000;
   }
 
   &[data-rock-type='emerald'] {
-    background-color: green;
+    background-color: #008500;
   }
 
   &[data-rock-type='jade'] {
-    background-color: lightgreen;
+    background-color: #00cc00;
   }
 
   &[data-rock-type='opal'] {
-    background-color: purple;
+    background-color: #be008a;
   }
 
   &[data-rock-type='sapphire'] {
-    background-color: blue;
+    background-color: #009999;
   }
 
   &[data-rock-type='tiger-eye'] {
-    background-color: orange;
+    background-color: #ff7400;
   }
 
   &[data-rock-type='topaz'] {
-    background-color: yellow; 
+    background-color: #a64b00; 
   }
 
   &:hover {
-    border: 5px solid black;
+    border-width: 0;
     cursor: pointer;
   }
 
   &.selected {
-    border: 10px solid black;
+    border: 2px solid #ffffff;
   }
 }
